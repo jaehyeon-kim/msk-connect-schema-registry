@@ -1,0 +1,15 @@
+.local
+.infra
+.terraform
+.terraform-plan*
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+terraform.tfsta*
+
+infra/key-pair/*.pem
+
+connect/local/src
+
+venv
+__pycache__
+.pytest_cache

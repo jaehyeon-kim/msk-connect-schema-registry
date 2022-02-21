@@ -1,0 +1,6 @@
+black
+pylint
+ipdb
+pytest
+typer[all]
+psycopg2-binary
