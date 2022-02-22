@@ -35,7 +35,8 @@ curl ${DOWNLOAD_URL} -o ${SRC_PATH}/voluble.zip \
 
 if [ ${WITH_AVRO} == "Y" ]; then
   echo "downloading kafka connect avro converter and guava..."
-  DOWNLOAD_URL=https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-avro-converter/versions/7.0.1/confluentinc-kafka-connect-avro-converter-7.0.1.zip
+  # DOWNLOAD_URL=https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-avro-converter/versions/7.0.1/confluentinc-kafka-connect-avro-converter-7.0.1.zip
+  DOWNLOAD_URL=https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-avro-converter/versions/6.0.3/confluentinc-kafka-connect-avro-converter-6.0.3.zip
 
   curl ${DOWNLOAD_URL} -s -o ${SRC_PATH}/avro.zip \
     && unzip -qq ${SRC_PATH}/avro.zip -d ${SRC_PATH} \
@@ -47,7 +48,7 @@ if [ ${WITH_AVRO} == "Y" ]; then
 
   echo "copying to connectors..."
   cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/debezium-connector-postgres
-  cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/confluent-s3/lib
+  # cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/confluent-s3/lib
   cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/voluble/lib
 fi
 
