@@ -22,7 +22,7 @@ DOWNLOAD_URL=https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafk
 curl ${DOWNLOAD_URL} -o ${SRC_PATH}/confluent.zip \
   && unzip -qq ${SRC_PATH}/confluent.zip -d ${SRC_PATH} \
   && rm ${SRC_PATH}/confluent.zip \
-  && mv ${SRC_PATH}/$(ls ${SRC_PATH} | grep /confluentinc-kafka-connect-s3) ${SRC_PATH}/confluent-s3
+  && mv ${SRC_PATH}/$(ls ${SRC_PATH} | grep confluentinc-kafka-connect-s3) ${SRC_PATH}/confluent-s3
 
 ## Voluble Source Connector
 echo "downloading voluble connector..."
@@ -47,7 +47,7 @@ if [ ${WITH_AVRO} == "Y" ]; then
 
   echo "copying to connectors..."
   cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/debezium-connector-postgres
-  cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/confluent-s3
+  cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/confluent-s3/lib
   cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/voluble/lib
 fi
 

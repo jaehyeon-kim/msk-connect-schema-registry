@@ -1,1 +1,1 @@
-# Terraform Template
+# MSK Connect with External Schema Registry
