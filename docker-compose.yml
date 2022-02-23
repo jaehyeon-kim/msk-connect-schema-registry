@@ -55,7 +55,7 @@ services:
     container_name: registry
     command: bash -c 'while !</dev/tcp/postgres/5432; do sleep 1; done; /usr/local/s2i/run'
     ports:
-      - "8080:8080"
+      - "9090:8080"
     environment:
       REGISTRY_DATASOURCE_URL: "jdbc:postgresql://postgres/main?currentSchema=registry"
       REGISTRY_DATASOURCE_USERNAME: master
@@ -68,12 +68,14 @@ services:
     image: provectuslabs/kafka-ui:0.3.3
     container_name: kafka-ui
     ports:
-      - "9090:8080"
+      - "8080:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://registry:8080/apis/ccompat/v6
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: local
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://kafka-connect:8083
     depends_on:
       - zookeeper
       - kafka
