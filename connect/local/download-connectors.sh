@@ -3,7 +3,6 @@
 echo "Add avro converter? (Y/N)"
 read WITH_AVRO
 
-# ROOT_DIR="$(cd $(dirname "$0")/..; pwd)"
 SCRIPT_DIR="$(cd $(dirname "$0"); pwd)"
 
 SRC_PATH=${SCRIPT_DIR}/src
@@ -15,7 +14,7 @@ DOWNLOAD_URL=https://repo1.maven.org/maven2/io/debezium/debezium-connector-postg
 
 curl -S -L ${DOWNLOAD_URL} | tar -C ${SRC_PATH} --warning=no-unknown-keyword -xzf -
 
-# Confluent S3 Sink Connector
+## Confluent S3 Sink Connector
 echo "downloading confluent s3 connector..."
 DOWNLOAD_URL=https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-s3/versions/10.0.5/confluentinc-kafka-connect-s3-10.0.5.zip
 
@@ -34,8 +33,7 @@ curl ${DOWNLOAD_URL} -o ${SRC_PATH}/voluble.zip \
   && mv ${SRC_PATH}/$(ls ${SRC_PATH} | grep mdrogalis-voluble) ${SRC_PATH}/voluble
 
 if [ ${WITH_AVRO} == "Y" ]; then
-  echo "downloading kafka connect avro converter and guava..."
-  # DOWNLOAD_URL=https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-avro-converter/versions/7.0.1/confluentinc-kafka-connect-avro-converter-7.0.1.zip
+  echo "downloading kafka connect avro converter..."
   DOWNLOAD_URL=https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-avro-converter/versions/6.0.3/confluentinc-kafka-connect-avro-converter-6.0.3.zip
 
   curl ${DOWNLOAD_URL} -s -o ${SRC_PATH}/avro.zip \
@@ -43,12 +41,8 @@ if [ ${WITH_AVRO} == "Y" ]; then
     && rm ${SRC_PATH}/avro.zip \
     && mv ${SRC_PATH}/$(ls ${SRC_PATH} | grep confluentinc-kafka-connect-avro-converter) ${SRC_PATH}/avro
 
-  DOWNLOAD_URL=https://repo1.maven.org/maven2/com/google/guava/guava/12.0/guava-12.0.jar
-  curl ${DOWNLOAD_URL} -s -o ${SRC_PATH}/avro/lib/guava-12.0.jar
-
-  echo "copying to connectors..."
+  echo "copying to debezium and voluble connectors..."
   cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/debezium-connector-postgres
-  # cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/confluent-s3/lib
   cp -r ${SRC_PATH}/avro/lib/* ${SRC_PATH}/voluble/lib
 fi
 
