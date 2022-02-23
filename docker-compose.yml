@@ -38,19 +38,6 @@ services:
     depends_on:
       - zookeeper
       - kafka
-  kafka-ui:
-    image: provectuslabs/kafka-ui:0.3.3
-    container_name: kafka-ui
-    ports:
-      - "9090:8080"
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
-      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://registry:8080/apis/ccompat/v6
-    depends_on:
-      - zookeeper
-      - kafka
   postgres:
     image: postgres:13
     container_name: postgres
@@ -66,6 +53,7 @@ services:
   registry:
     image: apicurio/apicurio-registry-sql:2.2.0.Final
     container_name: registry
+    command: bash -c 'while !</dev/tcp/postgres/5432; do sleep 1; done; /usr/local/s2i/run'
     ports:
       - "8080:8080"
     environment:
@@ -76,3 +64,16 @@ services:
       - zookeeper
       - kafka
       - postgres
+  kafka-ui:
+    image: provectuslabs/kafka-ui:0.3.3
+    container_name: kafka-ui
+    ports:
+      - "9090:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://registry:8080/apis/ccompat/v6
+    depends_on:
+      - zookeeper
+      - kafka
