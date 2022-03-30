@@ -1,0 +1,9 @@
+black
+pylint
+ipdb
+pytest
+typer[all]
+# get_terminal_size is dropped from click, downgrade to 8.0.3
+# https://github.com/tiangolo/typer/pull/375
+click==8.0.3
+psycopg2-binary
