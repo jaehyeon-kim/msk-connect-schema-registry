@@ -10,9 +10,9 @@ resource "aws_key_pair" "key_pair" {
   public_key = tls_private_key.pk[0].public_key_openssh
 }
 
-resource "local_file" "pem_file" {
-  count             = var.key_pair_create ? 1 : 0
-  filename          = pathexpand("${path.module}/key-pair/${var.resource_prefix}-key.pem")
-  file_permission   = "0400"
-  sensitive_content = tls_private_key.pk[0].private_key_pem
+resource "local_sensitive_file" "pem_file" {
+  count           = var.key_pair_create ? 1 : 0
+  filename        = pathexpand("${path.module}/key-pair/${var.resource_prefix}-key.pem")
+  file_permission = "0400"
+  content         = tls_private_key.pk[0].private_key_pem
 }
