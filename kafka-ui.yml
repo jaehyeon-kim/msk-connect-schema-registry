@@ -15,4 +15,4 @@ services:
       KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: AWS_MSK_IAM
       KAFKA_CLUSTERS_0_PROPERTIES_SASL_CLIENT_CALLBACK_HANDLER_CLASS: software.amazon.msk.auth.iam.IAMClientCallbackHandler
       KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: software.amazon.msk.auth.iam.IAMLoginModule required awsProfileName="cevo";
-      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://internal-analytics-registry-lb-2010648616.ap-southeast-2.elb.amazonaws.com/apis/ccompat/v6
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://$REGISTRY_HOST/apis/ccompat/v6
