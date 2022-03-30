@@ -116,3 +116,25 @@ output "registry_lb_dns_name" {
   description = "The DNS name of the load balancer for registry service"
   value       = var.registry_create ? aws_lb.registry_lb[0].dns_name : null
 }
+
+# MSK
+output "msk_arn" {
+  description = "Amazon Resource Name (ARN) of the MSK cluster"
+  value       = var.msk_create ? aws_msk_cluster.msk_data_cluster[0].arn : null
+}
+
+output "msk_bootstrap_brokers_sasl_iam" {
+  description = "One or more DNS names (or IP addresses) and SASL IAM port pairs"
+  value       = var.msk_create ? aws_msk_cluster.msk_data_cluster[0].bootstrap_brokers_sasl_iam : null
+}
+
+output "msk_connect_role_arn" {
+  description = "Amazon Resource Name (ARN) of the IAM role for connectors"
+  value       = var.msk_create ? aws_iam_role.msk_connect_role[0].arn : null
+}
+
+# S3
+output "s3_data_bucket_arn" {
+  description = "The ARN of the data bucket"
+  value       = aws_s3_bucket.data_bucket.arn
+}
